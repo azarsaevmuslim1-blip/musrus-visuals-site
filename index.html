@@ -3,612 +3,135 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MusRus Visuals — Премиум клиент-мод</title>
+<title>MusRus Visuals — Премиум визуал для Minecraft</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #0a0a0f;
-  --bg2: #0d0d14;
-  --card: #12121c;
-  --border: #1e1e2e;
-  --accent: #7c3aed;
-  --accent2: #a855f7;
-  --accent3: #6366f1;
-  --gold: #fbbf24;
-  --text: #e2e2ea;
-  --text2: #8888a0;
-  --font: 'Inter', system-ui, sans-serif;
-}
+:root{--bg:#0a0a0f;--card:#1a1a2e;--border:#2a2a4a;--accent:#7c3aed;--accent2:#22d3ee;--text:#fff;--text2:#9999b3;--font:'Inter',system-ui,sans-serif}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{
-  font-family:var(--font);
-  background:var(--bg);
-  color:var(--text);
-  overflow-x:hidden;
-  line-height:1.6;
-  opacity:0;
-  animation:fadeIn 1s ease forwards;
-}
+body{font-family:var(--font);background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6;opacity:0;animation:fadeIn 1s ease forwards}
 @keyframes fadeIn{to{opacity:1}}
-::-webkit-scrollbar{width:6px}
+::selection{background:var(--accent);color:#fff}
+::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--accent);border-radius:3px}
 
-/* ANIMATED GRID BG */
-#grid-bg{
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  background-image:
-    linear-gradient(rgba(124,58,237,.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(124,58,237,.04) 1px,transparent 1px);
-  background-size:60px 60px;
-  z-index:0;
-  pointer-events:none;
-}
-
-/* PARTICLES CANVAS */
-#particles-canvas{
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  z-index:1;
-  pointer-events:none;
-}
-
-/* HERO */
-.hero{
-  position:relative;
-  z-index:2;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:100px 20px 60px;
-}
-.hero-content{
-  opacity:0;
-  transform:translateY(30px);
-  animation:staggerUp .8s ease .3s forwards;
-}
-@keyframes staggerUp{to{opacity:1;transform:translateY(0)}}
-.hero-badge{
-  display:inline-block;
-  padding:6px 16px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:600;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  background:rgba(124,58,237,.15);
-  color:var(--accent2);
-  border:1px solid rgba(124,58,237,.3);
-  margin-bottom:24px;
-  animation:pulseBadge 2s ease-in-out infinite;
-}
-@keyframes pulseBadge{
-  0%,100%{opacity:1}
-  50%{opacity:.6}
-}
-.hero h1{
-  font-size:clamp(48px,10vw,120px);
-  font-weight:900;
-  line-height:1;
-  margin-bottom:16px;
-  background:linear-gradient(135deg,var(--accent2),var(--accent3),var(--gold),var(--accent2));
-  background-size:300% 300%;
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-  animation:gradientShift 4s ease infinite;
-  filter:drop-shadow(0 0 40px rgba(124,58,237,.3));
-  position:relative;
-}
-@keyframes gradientShift{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
-.hero h1::after{
-  content:'';
-  position:absolute;
-  inset:-20px;
-  background:radial-gradient(ellipse at center, rgba(124,58,237,.15), transparent 70%);
-  z-index:-1;
-  animation:heroGlow 3s ease-in-out infinite alternate;
-}
-@keyframes heroGlow{
-  0%{opacity:.5;transform:scale(1)}
-  100%{opacity:1;transform:scale(1.05)}
-}
-.hero p{
-  font-size:clamp(16px,2vw,22px);
-  color:var(--text2);
-  margin-bottom:40px;
-  max-width:600px;
-  font-weight:500;
-}
-.hero .btn-primary{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:18px 48px;
-  border-radius:12px;
-  font-size:18px;
-  font-weight:700;
-  text-decoration:none;
-  color:#fff;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  border:none;
-  cursor:pointer;
-  transition:transform .2s, box-shadow .2s;
-  animation:pulseBtn 2s ease-in-out infinite;
-  position:relative;
-  overflow:hidden;
-}
-.btn-primary::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  border-radius:12px;
-  background:linear-gradient(135deg,var(--accent2),var(--gold));
-  opacity:0;
-  transition:opacity .3s;
-}
-.btn-primary:hover::before{opacity:1}
-.btn-primary span{position:relative;z-index:1}
-@keyframes pulseBtn{
-  0%,100%{box-shadow:0 0 20px rgba(124,58,237,.3),0 0 40px rgba(124,58,237,.15)}
-  50%{box-shadow:0 0 30px rgba(124,58,237,.5),0 0 60px rgba(124,58,237,.25)}
-}
-.hero-counter{
-  margin-top:48px;
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-size:14px;
-  color:var(--text2);
-  opacity:0;
-  animation:staggerUp .8s ease .8s forwards;
-}
-.hero-counter .dot{
-  width:8px;height:8px;
-  border-radius:50%;
-  background:#22c55e;
-  animation:pulseDot 1.5s ease-in-out infinite;
-}
-@keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.3}}
-.hero-counter .count{color:var(--gold);font-weight:700;font-size:18px}
+#grid-bg{position:fixed;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(124,58,237,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,.03) 1px,transparent 1px);background-size:50px 50px;z-index:0;pointer-events:none}
+#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none}
 
 /* NAV */
-nav{
-  position:fixed;
-  top:0;left:0;right:0;
-  z-index:100;
-  padding:16px 40px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  background:rgba(10,10,15,.8);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid rgba(255,255,255,.05);
-  transition:transform .3s;
-}
-.nav-logo{
-  font-size:22px;
-  font-weight:800;
-  background:linear-gradient(135deg,var(--accent2),var(--gold));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-  text-decoration:none;
-}
-.nav-links{display:flex;gap:8px;list-style:none}
-.nav-links a{
-  color:var(--text2);
-  text-decoration:none;
-  font-size:14px;
-  font-weight:500;
-  padding:8px 16px;
-  border-radius:8px;
-  transition:color .2s, background .2s;
-  position:relative;
-}
-.nav-links a::after{
-  content:'';
-  position:absolute;
-  bottom:4px;left:16px;right:16px;
-  height:2px;
-  background:var(--accent2);
-  transform:scaleX(0);
-  transition:transform .2s;
-  border-radius:1px;
-}
-.nav-links a:hover{color:var(--text);background:rgba(124,58,237,.08)}
-.nav-links a:hover::after{transform:scaleX(1)}
-.burger{
-  display:none;
-  flex-direction:column;
-  gap:5px;
-  cursor:pointer;
-  padding:4px;
-  background:none;
-  border:none;
-}
-.burger span{
-  width:24px;height:2px;
-  background:var(--text);
-  border-radius:2px;
-  transition:transform .3s, opacity .3s;
-}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,10,15,.75);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.04)}
+.nav-logo{font-size:20px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none}
+.nav-links{display:flex;gap:6px;list-style:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:13px;font-weight:500;padding:8px 14px;border-radius:8px;transition:color .2s,background .2s}
+.nav-links a:hover{color:var(--text);background:rgba(124,58,237,.1)}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.burger span{width:22px;height:2px;background:var(--text);border-radius:2px;transition:transform .3s,opacity .3s}
 .burger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
 .burger.active span:nth-child(2){opacity:0}
 .burger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
 
+/* HERO */
+.hero{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 20px 60px}
+.hero-content{opacity:0;transform:translateY(30px);animation:staggerUp .8s ease .3s forwards}
+@keyframes staggerUp{to{opacity:1;transform:translateY(0)}}
+.hero-badge{display:inline-block;padding:6px 16px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;background:rgba(34,211,238,.12);color:var(--accent2);border:1px solid rgba(34,211,238,.25);margin-bottom:24px}
+.hero h1{font-size:clamp(44px,9vw,110px);font-weight:900;line-height:1;margin-bottom:14px;background:linear-gradient(135deg,var(--accent),var(--accent2),#a78bfa,var(--accent));background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradientShift 4s ease infinite;filter:drop-shadow(0 0 40px rgba(124,58,237,.25));position:relative}
+@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.hero h1::after{content:'';position:absolute;inset:-20px;background:radial-gradient(ellipse at center,rgba(124,58,237,.12),transparent 70%);z-index:-1;animation:heroGlow 3s ease-in-out infinite alternate}
+@keyframes heroGlow{0%{opacity:.5;transform:scale(1)}100%{opacity:1;transform:scale(1.05)}}
+.hero p{font-size:clamp(15px,1.8vw,20px);color:var(--text2);margin-bottom:12px;max-width:560px;font-weight:500}
+.hero-desc{font-size:14px;color:#777;max-width:480px;margin-bottom:36px;line-height:1.7}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 36px;border-radius:10px;font-size:15px;font-weight:700;text-decoration:none;cursor:pointer;border:none;transition:transform .2s,box-shadow .2s}
+.btn-primary{color:#fff;background:linear-gradient(135deg,var(--accent),#6d28d9);animation:pulseBtn 2s ease-in-out infinite}
+.btn-primary:hover{transform:scale(1.05);box-shadow:0 8px 30px rgba(124,58,237,.35)}
+@keyframes pulseBtn{0%,100%{box-shadow:0 0 15px rgba(124,58,237,.3)}50%{box-shadow:0 0 25px rgba(124,58,237,.5)}}
+.btn-secondary{color:var(--text);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
+.btn-secondary:hover{transform:scale(1.05);background:rgba(255,255,255,.1);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.hero-counter{margin-top:44px;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2);opacity:0;animation:staggerUp .8s ease .9s forwards}
+.hero-counter .dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:pulseDot 1.5s ease-in-out infinite}
+@keyframes pulseDot{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-counter .count{color:var(--accent2);font-weight:700;font-size:16px}
+
 /* SECTIONS */
-section{
-  position:relative;
-  z-index:2;
-  padding:100px 20px;
-  max-width:1200px;
-  margin:0 auto;
-}
-.section-title{
-  text-align:center;
-  font-size:clamp(28px,4vw,48px);
-  font-weight:800;
-  margin-bottom:16px;
-  background:linear-gradient(135deg,var(--accent2),var(--accent3));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-}
-.section-sub{
-  text-align:center;
-  color:var(--text2);
-  font-size:16px;
-  max-width:600px;
-  margin:0 auto 60px;
-  font-weight:400;
-}
+section{position:relative;z-index:2;padding:90px 20px;max-width:1100px;margin:0 auto}
+.section-title{text-align:center;font-size:clamp(26px,3.5vw,42px);font-weight:800;margin-bottom:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.section-sub{text-align:center;color:var(--text2);font-size:15px;max-width:520px;margin:0 auto 48px;font-weight:400}
 
 /* FEATURES */
-.features-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:24px;
-}
-.feature-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:32px;
-  transition:transform .3s, box-shadow .3s, border-color .3s;
-  cursor:default;
-  opacity:0;
-  transform:translateY(30px);
-}
-.feature-card.visible{
-  opacity:1;
-  transform:translateY(0);
-  transition:opacity .6s ease, transform .6s ease, box-shadow .3s, border-color .3s;
-}
-.feature-card:hover{
-  transform:translateY(-8px);
-  border-color:var(--accent);
-  box-shadow:0 16px 48px rgba(124,58,237,.15);
-}
-.feature-card .icon{font-size:36px;margin-bottom:16px}
-.feature-card h3{font-size:18px;font-weight:700;margin-bottom:8px;color:var(--text)}
-.feature-card p{font-size:14px;color:var(--text2);line-height:1.7}
-
-/* PRICING */
-.pricing-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:24px;
-  align-items:start;
-}
-.pricing-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:40px 32px;
-  text-align:center;
-  transition:transform .3s, box-shadow .3s, border-color .3s;
-  position:relative;
-  overflow:hidden;
-  opacity:0;
-  transform:translateY(30px);
-}
-.pricing-card.visible{
-  opacity:1;
-  transform:translateY(0);
-  transition:opacity .6s ease, transform .6s ease, box-shadow .3s, border-color .3s;
-}
-.pricing-card.popular{
-  border-color:var(--accent);
-  box-shadow:0 0 40px rgba(124,58,237,.1);
-}
-.pricing-card.popular::before{
-  content:'POPULAR';
-  position:absolute;
-  top:16px;right:-28px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#fff;
-  font-size:11px;
-  font-weight:700;
-  padding:4px 36px;
-  transform:rotate(45deg);
-  letter-spacing:1px;
-}
-.pricing-card:hover{
-  transform:translateY(-8px);
-  border-color:var(--accent2);
-  box-shadow:0 16px 48px rgba(124,58,237,.2);
-}
-.pricing-card .period{font-size:14px;color:var(--text2);font-weight:500;margin-bottom:8px}
-.pricing-card .price{
-  font-size:48px;
-  font-weight:900;
-  color:var(--text);
-  margin-bottom:4px;
-}
-.pricing-card .price span{font-size:20px;color:var(--text2)}
-.pricing-card .desc{font-size:14px;color:var(--text2);margin-bottom:24px}
-.pricing-card .features-list{
-  list-style:none;
-  text-align:left;
-  margin-bottom:32px;
-}
-.pricing-card .features-list li{
-  padding:8px 0;
-  font-size:14px;
-  color:var(--text2);
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-.pricing-card .features-list li::before{content:'✓';color:var(--accent2);font-weight:700}
-.pricing-card .btn-buy{
-  display:block;
-  width:100%;
-  padding:14px;
-  border-radius:10px;
-  font-size:16px;
-  font-weight:700;
-  text-decoration:none;
-  color:#fff;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  border:none;
-  cursor:pointer;
-  transition:transform .2s, box-shadow .2s;
-}
-.pricing-card .btn-buy:hover{transform:scale(1.03);box-shadow:0 8px 24px rgba(124,58,237,.3)}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.feature-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;transition:transform .3s,box-shadow .3s,border-color .3s;cursor:default;opacity:0;transform:translateY(30px)}
+.feature-card.visible{opacity:1;transform:translateY(0);transition:opacity .6s ease,transform .6s ease,box-shadow .3s,border-color .3s,background .3s}
+.feature-card:hover{transform:translateY(-6px);border-color:var(--accent);box-shadow:0 12px 40px rgba(124,58,237,.12);background:#1e1e34}
+.feature-card .preview{width:100%;height:120px;border-radius:10px;margin-bottom:16px;display:flex;align-items:center;justify-content:center;font-size:40px;position:relative;overflow:hidden}
+.feature-card .preview .label{position:absolute;bottom:8px;left:10px;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.5px}
+.feature-card h3{font-size:17px;font-weight:700;margin-bottom:6px;color:var(--text)}
+.feature-card p{font-size:13px;color:var(--text2);line-height:1.7}
 
 /* VIDEO */
-.video-section{
-  text-align:center;
-}
-.video-wrapper{
-  position:relative;
-  max-width:800px;
-  margin:0 auto;
-  border-radius:16px;
-  overflow:hidden;
-  border:1px solid var(--border);
-  background:var(--card);
-  aspect-ratio:16/9;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.video-placeholder{
-  color:var(--text2);
-  font-size:18px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:16px;
-}
-.video-placeholder .play-icon{
-  width:64px;height:64px;
-  border-radius:50%;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:24px;
-  cursor:pointer;
-  transition:transform .2s;
-}
-.video-placeholder .play-icon:hover{transform:scale(1.1)}
-.screenshots{
-  display:flex;
-  gap:16px;
-  margin-top:40px;
-  overflow-x:auto;
-  padding-bottom:12px;
-  scroll-snap-type:x mandatory;
-}
-.screenshots::-webkit-scrollbar{height:4px}
-.screenshots::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}
-.screenshot-card{
-  min-width:280px;
-  height:180px;
-  border-radius:12px;
-  border:1px solid var(--border);
-  background:var(--card);
-  scroll-snap-align:start;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--text2);
-  font-size:14px;
-  flex-shrink:0;
-  position:relative;
-  overflow:hidden;
-  transition:border-color .3s;
-}
-.screenshot-card:hover{border-color:var(--accent2)}
-.screenshot-card .label{
-  position:absolute;
-  bottom:12px;
-  left:12px;
-  font-size:12px;
-  color:var(--text2);
-  font-weight:500;
-}
+.video-section{text-align:center;padding-top:60px}
+.video-wrapper{max-width:800px;margin:0 auto;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:#000;box-shadow:0 16px 60px rgba(124,58,237,.1)}
+.video-wrapper iframe{width:100%;aspect-ratio:16/9;display:block;border:none}
+.video-caption{color:var(--text2);font-size:14px;margin-top:14px;font-weight:500}
 
-/* SUPPORT */
-.support-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:24px;
-}
-.support-card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:32px;
-  text-align:center;
-  transition:transform .3s, border-color .3s;
-}
-.support-card:hover{transform:translateY(-4px);border-color:var(--accent)}
-.support-card .icon{font-size:40px;margin-bottom:16px}
-.support-card h3{font-size:18px;font-weight:700;margin-bottom:8px}
-.support-card p{font-size:14px;color:var(--text2);margin-bottom:20px}
-.support-card .btn-link{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:12px 28px;
-  border-radius:10px;
-  font-size:14px;
-  font-weight:600;
-  text-decoration:none;
-  color:#fff;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  transition:transform .2s;
-}
-.support-card .btn-link:hover{transform:scale(1.05)}
+/* ADVANTAGES */
+.advantages-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.advantage-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;text-align:center;transition:transform .3s,border-color .3s;opacity:0;transform:translateY(20px)}
+.advantage-card.visible{opacity:1;transform:translateY(0);transition:opacity .5s ease,transform .5s ease,border-color .3s}
+.advantage-card:hover{transform:translateY(-4px);border-color:var(--accent)}
+.advantage-card .icon{font-size:36px;margin-bottom:10px}
+.advantage-card h4{font-size:15px;font-weight:700;margin-bottom:4px}
+.advantage-card p{font-size:13px;color:var(--text2)}
 
-/* CONTACT FORM */
-.contact-form{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:32px;
-  max-width:500px;
-  margin:0 auto;
-}
-.contact-form h3{font-size:18px;font-weight:700;margin-bottom:16px;text-align:center}
-.contact-form input,.contact-form textarea{
-  width:100%;
-  padding:12px 16px;
-  margin-bottom:12px;
-  border-radius:8px;
-  border:1px solid var(--border);
-  background:var(--bg2);
-  color:var(--text);
-  font-family:var(--font);
-  font-size:14px;
-  outline:none;
-  transition:border-color .2s;
-}
-.contact-form input:focus,.contact-form textarea:focus{border-color:var(--accent2)}
-.contact-form textarea{height:120px;resize:vertical}
-.contact-form .btn-submit{
-  width:100%;
-  padding:14px;
-  border-radius:10px;
-  font-size:15px;
-  font-weight:700;
-  color:#fff;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  border:none;
-  cursor:pointer;
-  transition:transform .2s;
-}
-.contact-form .btn-submit:hover{transform:scale(1.02)}
+/* CONTACT */
+.contact-section{text-align:center}
+.contact-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:40px;max-width:460px;margin:0 auto;opacity:0;transform:translateY(20px)}
+.contact-card.visible{opacity:1;transform:translateY(0);transition:opacity .6s ease,transform .6s ease}
+.contact-card .icon{font-size:56px;margin-bottom:12px}
+.contact-card h3{font-size:20px;font-weight:700;margin-bottom:8px}
+.contact-card p{font-size:14px;color:var(--text2);margin-bottom:24px}
+.contact-card .btn-tg{display:inline-flex;align-items:center;gap:10px;padding:16px 40px;border-radius:12px;font-size:16px;font-weight:700;text-decoration:none;color:#fff;background:linear-gradient(135deg,#1e96c8,#179cde);transition:transform .2s,box-shadow .2s}
+.contact-card .btn-tg:hover{transform:scale(1.06);box-shadow:0 8px 30px rgba(30,150,200,.35)}
 
 /* FOOTER */
-footer{
-  position:relative;
-  z-index:2;
-  border-top:1px solid var(--border);
-  padding:60px 20px 40px;
-  text-align:center;
-}
-footer .logo{
-  font-size:20px;
-  font-weight:800;
-  background:linear-gradient(135deg,var(--accent2),var(--gold));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-  margin-bottom:8px;
-}
-footer p{font-size:13px;color:var(--text2);margin-bottom:4px}
-footer a{color:var(--accent2);text-decoration:none}
-footer a:hover{text-decoration:underline}
-footer .links{
-  display:flex;
-  justify-content:center;
-  gap:24px;
-  margin:16px 0;
-  flex-wrap:wrap;
-}
-footer .links a{font-size:13px;color:var(--text2)}
-footer .links a:hover{color:var(--accent2)}
+footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:48px 20px 32px;text-align:center}
+footer .logo{font-size:18px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
+footer p{font-size:13px;color:var(--text2);margin-bottom:2px}
+footer .heart{color:#ef4444}
 
 /* RESPONSIVE */
 @media(max-width:768px){
   nav{padding:12px 16px}
-  .nav-links{
-    position:fixed;
-    top:0;right:-100%;
-    width:260px;height:100vh;
-    background:rgba(10,10,15,.95);
-    backdrop-filter:blur(20px);
-    flex-direction:column;
-    padding:80px 24px 24px;
-    transition:right .3s ease;
-    border-left:1px solid var(--border);
-    gap:4px;
-  }
+  .nav-links{position:fixed;top:0;right:-100%;width:240px;height:100vh;background:rgba(10,10,15,.95);backdrop-filter:blur(20px);flex-direction:column;padding:76px 20px 20px;transition:right .3s ease;border-left:1px solid var(--border);gap:2px}
   .nav-links.open{right:0}
-  .nav-links a{padding:12px 16px;font-size:16px}
-  .nav-links a::after{display:none}
+  .nav-links a{padding:12px 14px;font-size:15px}
   .burger{display:flex}
+  .hero .btn{padding:14px 28px;font-size:14px}
   section{padding:60px 16px}
   .features-grid{grid-template-columns:1fr}
-  .pricing-grid{grid-template-columns:1fr}
-  .support-grid{grid-template-columns:1fr}
-  .hero h1{font-size:clamp(36px,14vw,56px)}
-  .hero .btn-primary{padding:16px 32px;font-size:16px}
+  .advantages-grid{grid-template-columns:1fr 1fr}
 }
-
 @media(max-width:480px){
   .hero{padding:80px 16px 40px}
-  .hero h1{font-size:clamp(28px,12vw,42px)}
-  .pricing-card{padding:28px 20px}
+  .hero h1{font-size:clamp(32px,14vw,44px)}
+  .advantages-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
 <div id="grid-bg"></div>
-<canvas id="particles-canvas"></canvas>
+<canvas id="particles"></canvas>
 
-<!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">✦ MusRus</a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#features">Функции</a></li>
-    <li><a href="#pricing">Тарифы</a></li>
     <li><a href="#video">Видео</a></li>
-    <li><a href="#support">Поддержка</a></li>
+    <li><a href="#advantages">Почему мы</a></li>
+    <li><a href="#contact">Контакты</a></li>
   </ul>
   <button class="burger" id="burger" aria-label="Меню">
     <span></span><span></span><span></span>
@@ -618,369 +141,250 @@ footer .links a:hover{color:var(--accent2)}
 <!-- HERO -->
 <section class="hero">
   <div class="hero-content">
-    <div class="hero-badge">✦ Премиум клиент-мод 1.21.4</div>
-    <h1>MusRus Visuals</h1>
+    <div class="hero-badge">⚡ Премиум визуал 1.21.4</div>
+    <h1>MUSRUS<br>VISUALS</h1>
     <p>Твой стиль. Твоя игра. Твои правила.</p>
-    <a href="https://github.com/azarsaevmuslim1-blip/musrus-license-server/releases/tag/v1.0.0" class="btn-primary" target="_blank" rel="noopener">
-      <span>🔥 Купить лицензию</span>
-    </a>
+    <div class="hero-desc">Визуальный клиент, который делает Minecraft красивее и удобнее. Тысячи игроков уже оценили!</div>
+    <div class="hero-btns">
+      <button class="btn btn-primary" onclick="showComingSoon()">
+        <span>📥</span> Скачать сейчас
+      </button>
+      <a href="#video" class="btn btn-secondary">
+        <span>▶</span> Смотреть видео
+      </a>
+    </div>
     <div class="hero-counter">
       <span class="dot"></span>
-      Сейчас в игре: <span class="count" id="onlineCount">127</span>
+      Сейчас онлайн: <span class="count" id="onlineCount">142</span>
     </div>
   </div>
 </section>
 
 <!-- FEATURES -->
 <section id="features">
-  <h2 class="section-title">Возможности</h2>
-  <p class="section-sub">Всё, что нужно для идеальной игры — в одном клиенте</p>
+  <h2 class="section-title">Основные функции</h2>
+  <p class="section-sub">Всё, что нужно для идеальной игры</p>
   <div class="features-grid">
     <div class="feature-card" data-delay="0">
-      <div class="icon">🎨</div>
-      <h3>Стиль</h3>
-      <p>Полная кастомизация интерфейса — меняй цвета, шрифты, расположение элементов под себя.</p>
+      <div class="preview" style="background:linear-gradient(135deg,#1a1a3e,#2d1b69)">
+        <div style="width:80%;height:70%;background:rgba(0,0,0,.3);border-radius:6px;position:relative;overflow:hidden">
+          <div style="position:absolute;top:6px;left:6px;right:6px;height:14px;background:rgba(124,58,237,.3);border-radius:3px;display:flex;gap:4px;padding:0 4px;align-items:center">
+            <span style="width:20px;height:4px;background:#fff;border-radius:2px;opacity:.3"></span>
+            <span style="width:40px;height:4px;background:var(--accent2);border-radius:2px;opacity:.6"></span>
+            <span style="width:16px;height:4px;background:#fff;border-radius:2px;opacity:.2;margin-left:auto"></span>
+          </div>
+          <div style="position:absolute;bottom:8px;left:6px;right:40%;height:6px;background:var(--accent2);border-radius:3px;opacity:.4"></div>
+          <div style="position:absolute;bottom:8px;right:6px;width:16px;height:16px;border-radius:50%;border:2px solid var(--accent2);opacity:.5"></div>
+        </div>
+        <span class="label">HUD</span>
+      </div>
+      <h3>🎨 Стильный HUD</h3>
+      <p>Настраиваемый интерфейс под твой вкус — меняй цвета, расположение и видимость элементов.</p>
     </div>
-    <div class="feature-card" data-delay="100">
-      <div class="icon">⚡</div>
-      <h3>Производительность</h3>
-      <p>Оптимизация рендеринга и сети для максимального FPS даже на слабых ПК.</p>
+    <div class="feature-card" data-delay="80">
+      <div class="preview" style="background:linear-gradient(135deg,#1a2e1a,#166534)">
+        <div style="width:80%;height:70%;background:rgba(0,0,0,.25);border-radius:6px;position:relative">
+          <div style="position:absolute;bottom:10px;left:10px;right:10px;height:30px;display:flex;align-items:flex-end;gap:4px">
+            <span style="flex:1;height:60%;background:var(--accent2);border-radius:2px;opacity:.6"></span>
+            <span style="flex:1;height:90%;background:#22c55e;border-radius:2px;opacity:.7"></span>
+            <span style="flex:1;height:40%;background:var(--accent2);border-radius:2px;opacity:.5"></span>
+            <span style="flex:1;height:75%;background:#22c55e;border-radius:2px;opacity:.7"></span>
+            <span style="flex:1;height:55%;background:var(--accent2);border-radius:2px;opacity:.6"></span>
+            <span style="flex:1;height:85%;background:#22c55e;border-radius:2px;opacity:.8"></span>
+          </div>
+          <div style="position:absolute;top:8px;left:10px;font-size:10px;color:rgba(255,255,255,.4);font-weight:600">FPS: 287</div>
+        </div>
+        <span class="label">FPS</span>
+      </div>
+      <h3>⚡ Высокий FPS</h3>
+      <p>Оптимизация рендеринга и сети для плавной игры даже на слабых ПК.</p>
     </div>
-    <div class="feature-card" data-delay="200">
-      <div class="icon">⚙️</div>
-      <h3>Гибкие настройки</h3>
-      <p>Тонкая настройка каждого модуля: от HUD до анимаций. Всё под твой стиль игры.</p>
+    <div class="feature-card" data-delay="160">
+      <div class="preview" style="background:linear-gradient(135deg,#2e1a1a,#6b1d1d)">
+        <div style="width:80%;height:70%;background:rgba(0,0,0,.25);border-radius:6px;position:relative;display:flex;align-items:center;justify-content:center">
+          <div style="position:relative;width:36px;height:36px">
+            <div style="position:absolute;top:50%;left:0;right:0;height:2px;background:var(--accent2);opacity:.5;transform:translateY(-50%)"></div>
+            <div style="position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--accent2);opacity:.5;transform:translateX(-50%)"></div>
+            <div style="position:absolute;top:50%;left:50%;width:6px;height:6px;background:#ef4444;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 8px #ef4444"></div>
+          </div>
+          <div style="position:absolute;bottom:8px;right:10px;font-size:10px;color:rgba(255,255,255,.4);font-weight:600">+12HP</div>
+        </div>
+        <span class="label">PvP</span>
+      </div>
+      <h3>🎯 PvP-настройки</h3>
+      <p>Чёткие прицелы, индикаторы урона и дамаг-лог для максимального контроля в бою.</p>
     </div>
-    <div class="feature-card" data-delay="300">
-      <div class="icon">🛡️</div>
-      <h3>Совместимость</h3>
-      <p>Полная совместимость с анти-читами и другими модами. Никаких банов.</p>
+    <div class="feature-card" data-delay="240">
+      <div class="preview" style="background:linear-gradient(135deg,#1a1a3e,#1e3a5f)">
+        <div style="width:80%;height:70%;background:rgba(0,0,0,.25);border-radius:6px;position:relative;display:flex;align-items:center;justify-content:center">
+          <div style="font-size:36px;opacity:.5">🛡️</div>
+          <div style="position:absolute;top:8px;right:10px;font-size:9px;color:#22c55e;font-weight:600">✓ АКТИВНО</div>
+        </div>
+        <span class="label">Анти-чит</span>
+      </div>
+      <h3>🛡️ Анти-чит</h3>
+      <p>Полная совместимость с анти-читами. Никаких банов — только честная игра.</p>
+    </div>
+    <div class="feature-card" data-delay="320">
+      <div class="preview" style="background:linear-gradient(135deg,#1a1a2e,#2d1b4e)">
+        <div style="width:80%;height:70%;background:rgba(0,0,0,.25);border-radius:6px;position:relative;padding:12px">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="font-size:12px;opacity:.5">🎨</span>
+              <span style="flex:1;height:6px;background:var(--accent2);border-radius:3px;opacity:.5"></span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="font-size:12px;opacity:.5">⚡</span>
+              <span style="flex:1;height:6px;background:var(--accent);border-radius:3px;opacity:.5"></span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="font-size:12px;opacity:.5">🔊</span>
+              <span style="flex:1;height:6px;background:var(--accent2);border-radius:3px;opacity:.4"></span>
+            </div>
+          </div>
+        </div>
+        <span class="label">Настройки</span>
+      </div>
+      <h3>🔧 Гибкие настройки</h3>
+      <p>Всё можно изменить под себя: от цвета HUD до звуков и горячих клавиш.</p>
     </div>
     <div class="feature-card" data-delay="400">
-      <div class="icon">🔄</div>
-      <h3>Регулярные обновления</h3>
-      <p>Актуальные версии под каждый патч Minecraft. Новые фичи каждую неделю.</p>
-    </div>
-    <div class="feature-card" data-delay="500">
-      <div class="icon">🔑</div>
-      <h3>Лицензия</h3>
-      <p>Простая активация по ключу. Никаких сложных настроек — купил и играешь.</p>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section id="pricing">
-  <h2 class="section-title">Тарифы</h2>
-  <p class="section-sub">Выбери подходящий план и получи доступ ко всем функциям</p>
-  <div class="pricing-grid">
-    <div class="pricing-card" data-delay="0">
-      <div class="period">30 дней</div>
-      <div class="price">199 <span>₽</span></div>
-      <div class="desc">Попробуй визуал в деле</div>
-      <ul class="features-list">
-        <li>Все функции клиента</li>
-        <li>Обновления на месяц</li>
-        <li>Поддержка в Telegram</li>
-      </ul>
-      <a href="https://github.com/azarsaevmuslim1-blip/musrus-license-server/releases/tag/v1.0.0" class="btn-buy" target="_blank" rel="noopener">Приобрести</a>
-    </div>
-    <div class="pricing-card popular" data-delay="100">
-      <div class="period">90 дней</div>
-      <div class="price">349 <span>₽</span></div>
-      <div class="desc">Оптимальный выбор</div>
-      <ul class="features-list">
-        <li>Все функции клиента</li>
-        <li>Обновления на 3 месяца</li>
-        <li>Поддержка в Telegram</li>
-        <li>Приоритетные обновления</li>
-      </ul>
-      <a href="https://github.com/azarsaevmuslim1-blip/musrus-license-server/releases/tag/v1.0.0" class="btn-buy" target="_blank" rel="noopener">Приобрести</a>
-    </div>
-    <div class="pricing-card" data-delay="200">
-      <div class="period">Навсегда</div>
-      <div class="price">699 <span>₽</span></div>
-      <div class="desc">Полный доступ без ограничений</div>
-      <ul class="features-list">
-        <li>Все функции клиента</li>
-        <li>Пожизненные обновления</li>
-        <li>Приоритетная поддержка</li>
-        <li>Эксклюзивный доступ к бета-фичам</li>
-        <li>VIP-статус</li>
-      </ul>
-      <a href="https://github.com/azarsaevmuslim1-blip/musrus-license-server/releases/tag/v1.0.0" class="btn-buy" target="_blank" rel="noopener">Приобрести</a>
+      <div class="preview" style="background:linear-gradient(135deg,#1a2e1a,#0f3d0f)">
+        <div style="width:80%;height:70%;background:rgba(0,0,0,.25);border-radius:6px;position:relative;display:flex;align-items:center;justify-content:center">
+          <div style="display:flex;gap:8px">
+            <div style="text-align:center">
+              <div style="font-size:10px;color:rgba(255,255,255,.3);font-weight:600">1.21</div>
+              <div style="width:24px;height:2px;background:var(--accent);border-radius:2px;margin:3px 0;opacity:.5"></div>
+              <div style="font-size:9px;color:rgba(255,255,255,.2)">v3.2</div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:10px;color:rgba(255,255,255,.4);font-weight:600">1.21</div>
+              <div style="width:24px;height:2px;background:var(--accent2);border-radius:2px;margin:3px 0;opacity:.7"></div>
+              <div style="font-size:9px;color:rgba(255,255,255,.3)">v4.0</div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-size:10px;color:rgba(255,255,255,.5);font-weight:600">1.22</div>
+              <div style="width:24px;height:2px;background:#22c55e;border-radius:2px;margin:3px 0;opacity:.8"></div>
+              <div style="font-size:9px;color:rgba(255,255,255,.4)">v4.2</div>
+            </div>
+          </div>
+        </div>
+        <span class="label">Обновления</span>
+      </div>
+      <h3>🔄 Регулярные обновления</h3>
+      <p>Актуальные версии под каждый патч. Новые фичи и улучшения каждый месяц.</p>
     </div>
   </div>
 </section>
 
 <!-- VIDEO -->
 <section id="video" class="video-section">
-  <h2 class="section-title">Видеообзор</h2>
-  <p class="section-sub">Смотри, как работает MusRus Visuals в действии</p>
+  <h2 class="section-title">Смотри, как меняется игра!</h2>
+  <p class="section-sub">Дуэль на 30 секунд — MusRus Visuals в действии</p>
   <div class="video-wrapper">
-    <div class="video-placeholder">
-      <div class="play-icon" id="playVideo">▶</div>
-      <span>Скоро появится видеообзор</span>
-    </div>
+    <iframe src="https://www.youtube.com/embed/NJrDFuuzcSg?autoplay=0&rel=0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
   </div>
-  <div class="screenshots">
-    <div class="screenshot-card" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">
-      <span class="label">🎯 Интерфейс HUD</span>
+  <p class="video-caption">⚡ Реальная игра. Реальные преимущества.</p>
+</section>
+
+<!-- ADVANTAGES -->
+<section id="advantages">
+  <h2 class="section-title">Почему MusRus Visuals?</h2>
+  <p class="section-sub">Тысячи игроков уже сделали выбор</p>
+  <div class="advantages-grid">
+    <div class="advantage-card" data-delay="0">
+      <div class="icon">🖥️</div>
+      <h4>Простота установки</h4>
+      <p>Скачал, запустил, играешь — без плясок с бубном</p>
     </div>
-    <div class="screenshot-card" style="background:linear-gradient(135deg,#2e1a1a,#3e1616)">
-      <span class="label">⚡ FunTime Events</span>
+    <div class="advantage-card" data-delay="80">
+      <div class="icon">🎮</div>
+      <h4>Улучшенный геймплей</h4>
+      <p>Всё становится плавнее, красивее и удобнее</p>
     </div>
-    <div class="screenshot-card" style="background:linear-gradient(135deg,#1a2e1a,#163e16)">
-      <span class="label">🛡️ Дамаг-индикатор</span>
+    <div class="advantage-card" data-delay="160">
+      <div class="icon">🏆</div>
+      <h4>PvP-преимущество</h4>
+      <p>Ты видишь врага быстрее и реагируешь точнее</p>
     </div>
-    <div class="screenshot-card" style="background:linear-gradient(135deg,#2e1a2e,#3e163e)">
-      <span class="label">🌀 Totem Counter</span>
-    </div>
-    <div class="screenshot-card" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">
-      <span class="label">🎨 Настройки темы</span>
+    <div class="advantage-card" data-delay="240">
+      <div class="icon">💬</div>
+      <h4>Поддержка 24/7</h4>
+      <p>Мы всегда на связи в Telegram — отвечаем быстро</p>
     </div>
   </div>
 </section>
 
-<!-- SUPPORT -->
-<section id="support">
-  <h2 class="section-title">Поддержка</h2>
-  <p class="section-sub">Есть вопросы? Мы на связи</p>
-  <div class="support-grid">
-    <div class="support-card">
-      <div class="icon">💬</div>
-      <h3>Telegram</h3>
-      <p>Оперативная поддержка и новости</p>
-      <a href="https://t.me/musrus_visuals" class="btn-link" target="_blank" rel="noopener">Написать</a>
-    </div>
-    <div class="support-card">
-      <div class="icon">🐙</div>
-      <h3>GitHub</h3>
-      <p>Исходный код и релизы</p>
-      <a href="https://github.com/azarsaevmuslim1-blip/musrus-visuals" class="btn-link" target="_blank" rel="noopener">Открыть</a>
-    </div>
-    <div class="support-card">
-      <div class="icon">📄</div>
-      <h3>Лицензии</h3>
-      <p>Сервер активации лицензий</p>
-      <a href="https://github.com/azarsaevmuslim1-blip/musrus-license-server" class="btn-link" target="_blank" rel="noopener">Перейти</a>
-    </div>
-  </div>
-  <div class="contact-form" style="margin-top:40px">
-    <h3>✉️ Связаться с нами</h3>
-    <form id="contactForm" onsubmit="return false">
-      <input type="text" placeholder="Ваше имя" required>
-      <input type="email" placeholder="Email для ответа" required>
-      <textarea placeholder="Опишите ваш вопрос..." required></textarea>
-      <button type="submit" class="btn-submit">Отправить</button>
-    </form>
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <h2 class="section-title">Есть вопросы?</h2>
+  <p class="section-sub">Напиши нам — поможем с установкой, ответим на любые вопросы</p>
+  <div class="contact-card" data-delay="0">
+    <div class="icon">✈️</div>
+    <h3>Свяжись с нами</h3>
+    <p>Напиши в Telegram — мы онлайн и всегда готовы помочь</p>
+    <a href="https://t.me/MusrusVisual" class="btn-tg" target="_blank" rel="noopener">
+      <span>💬</span> Написать в Telegram
+    </a>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div class="logo">✦ MusRus Visuals</div>
-  <p>© 2026 MusRus Visuals. Все права защищены.</p>
-  <div class="links">
-    <a href="#">Политика конфиденциальности</a>
-    <a href="https://github.com/azarsaevmuslim1-blip/musrus-license-server" target="_blank" rel="noopener">Сервер лицензий</a>
-  </div>
+  <p>© 2026 MusRus Visuals.</p>
+  <p>Сделано с <span class="heart">❤</span> для настоящих игроков</p>
 </footer>
 
 <script>
-// ========== SOUND ENGINE (Web Audio API) ==========
-let audioCtx = null;
-function getCtx() {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  return audioCtx;
-}
-function playHover() {
-  try {
-    const c = getCtx();
-    const o = c.createOscillator();
-    const g = c.createGain();
-    o.connect(g); g.connect(c.destination);
-    o.type = 'sine';
-    o.frequency.setValueAtTime(600, c.currentTime);
-    o.frequency.exponentialRampToValueAtTime(200, c.currentTime + 0.08);
-    g.gain.setValueAtTime(0.04, c.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + 0.08);
-    o.start(c.currentTime); o.stop(c.currentTime + 0.08);
-  } catch(e) {/*ignore*/}
-}
-function playClick() {
-  try {
-    const c = getCtx();
-    const o = c.createOscillator();
-    const g = c.createGain();
-    const noise = c.createBufferSource();
-    const buf = c.createBuffer(1, c.sampleRate * 0.05, c.sampleRate);
-    const data = buf.getChannelData(0);
-    for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / data.length, 4);
-    noise.buffer = buf;
-    const ng = c.createGain();
-    noise.connect(ng); ng.connect(c.destination);
-    ng.gain.setValueAtTime(0.08, c.currentTime);
-    ng.gain.exponentialRampToValueAtTime(0.001, c.currentTime + 0.04);
-    noise.start(c.currentTime); noise.stop(c.currentTime + 0.04);
+// SOUNDS
+let audioCtx=null;
+function getCtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx}
+function playHover(){try{const c=getCtx(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type='sine';o.frequency.setValueAtTime(600,c.currentTime);o.frequency.exponentialRampToValueAtTime(200,c.currentTime+.08);g.gain.setValueAtTime(.04,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.08);o.start(c.currentTime);o.stop(c.currentTime+.08)}catch(e){}}
+function playClick(){try{const c=getCtx(),o=c.createOscillator(),g=c.createGain();const n=c.createBufferSource(),b=c.createBuffer(1,c.sampleRate*.05,c.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,4);n.buffer=b;const ng=c.createGain();n.connect(ng);ng.connect(c.destination);ng.gain.setValueAtTime(.08,c.currentTime);ng.gain.exponentialRampToValueAtTime(.001,c.currentTime+.04);n.start(c.currentTime);n.stop(c.currentTime+.04);o.connect(g);g.connect(c.destination);o.type='square';o.frequency.setValueAtTime(1000,c.currentTime);o.frequency.exponentialRampToValueAtTime(400,c.currentTime+.04);g.gain.setValueAtTime(.05,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.04);o.start(c.currentTime);o.stop(c.currentTime+.04)}catch(e){}}
+function playWhoosh(){try{const c=getCtx(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type='sawtooth';o.frequency.setValueAtTime(200,c.currentTime);o.frequency.exponentialRampToValueAtTime(800,c.currentTime+.15);g.gain.setValueAtTime(.03,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.2);o.start(c.currentTime);o.stop(c.currentTime+.2)}catch(e){}}
+document.querySelectorAll('a,.btn,.btn-tg,.burger').forEach(el=>{el.addEventListener('mouseenter',playHover);el.addEventListener('click',playClick)});
 
-    o.connect(g); g.connect(c.destination);
-    o.type = 'square';
-    o.frequency.setValueAtTime(1000, c.currentTime);
-    o.frequency.exponentialRampToValueAtTime(400, c.currentTime + 0.04);
-    g.gain.setValueAtTime(0.05, c.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + 0.04);
-    o.start(c.currentTime); o.stop(c.currentTime + 0.04);
-  } catch(e) {/*ignore*/}
-}
-function playWhoosh() {
-  try {
-    const c = getCtx();
-    const o = c.createOscillator();
-    const g = c.createGain();
-    o.connect(g); g.connect(c.destination);
-    o.type = 'sawtooth';
-    o.frequency.setValueAtTime(200, c.currentTime);
-    o.frequency.exponentialRampToValueAtTime(800, c.currentTime + 0.15);
-    g.gain.setValueAtTime(0.03, c.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + 0.2);
-    o.start(c.currentTime); o.stop(c.currentTime + 0.2);
-  } catch(e) {/*ignore*/}
-}
-
-// Attach sounds
-document.querySelectorAll('a, .btn-buy, .btn-submit, .btn-primary, .btn-link, .burger, .play-icon').forEach(el => {
-  el.addEventListener('mouseenter', playHover);
-  el.addEventListener('click', playClick);
-});
-
-// ========== PARTICLES ==========
-const canvas = document.getElementById('particles-canvas');
-const ctx = canvas.getContext('2d');
-let W, H;
-function resize() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener('resize', resize);
-
-const particles = [];
-const count = Math.min(100, Math.floor(W * H / 8000));
-for (let i = 0; i < count; i++) {
-  particles.push({
-    x: Math.random() * W,
-    y: Math.random() * H,
-    vx: (Math.random() - 0.5) * 0.4,
-    vy: (Math.random() - 0.5) * 0.4,
-    r: Math.random() * 2 + 0.5,
-    a: Math.random() * 0.5 + 0.1,
-  });
-}
-
-function drawParticles() {
-  ctx.clearRect(0, 0, W, H);
-  for (const p of particles) {
-    p.x += p.vx;
-    p.y += p.vy;
-    if (p.x < 0) p.x = W;
-    if (p.x > W) p.x = 0;
-    if (p.y < 0) p.y = H;
-    if (p.y > H) p.y = 0;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(168,85,247,${p.a})`;
-    ctx.fill();
+// PARTICLES
+const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');
+let W,H;
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
+resize();window.addEventListener('resize',resize);
+const particles=[...Array(Math.min(80,Math.floor(W*H/10000)))].map(()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.8+.3,a:Math.random()*.4+.1}));
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  for(const p of particles){
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0)p.x=W;if(p.x>W)p.x=0;
+    if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(34,211,238,${p.a})`;ctx.fill();
   }
-  // Draw connections
-  for (let i = 0; i < particles.length; i++) {
-    for (let j = i + 1; j < particles.length; j++) {
-      const dx = particles[i].x - particles[j].x;
-      const dy = particles[i].y - particles[j].y;
-      const d = Math.sqrt(dx * dx + dy * dy);
-      if (d < 120) {
-        ctx.beginPath();
-        ctx.moveTo(particles[i].x, particles[i].y);
-        ctx.lineTo(particles[j].x, particles[j].y);
-        ctx.strokeStyle = `rgba(124,58,237,${0.08 * (1 - d / 120)})`;
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
-      }
-    }
+  for(let i=0;i<particles.length;i++)for(let j=i+1;j<particles.length;j++){
+    const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,d=Math.sqrt(dx*dx+dy*dy);
+    if(d<100){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle=`rgba(124,58,237,${.06*(1-d/100)})`;ctx.lineWidth=.5;ctx.stroke()}
   }
-  requestAnimationFrame(drawParticles);
+  requestAnimationFrame(draw)
 }
-drawParticles();
+draw();
 
-// ========== SCROLL ANIMATIONS ==========
-const observer = new IntersectionObserver((entries) => {
-  for (const e of entries) {
-    if (e.isIntersecting) {
-      const delay = parseInt(e.target.dataset.delay) || 0;
-      setTimeout(() => e.target.classList.add('visible'), delay);
-      observer.unobserve(e.target);
-    }
-  }
-}, { threshold: 0.1 });
+// SCROLL ANIMATIONS
+const obs=new IntersectionObserver(e=>{for(const en of e){if(en.isIntersecting){const d=parseInt(en.target.dataset.delay)||0;setTimeout(()=>en.target.classList.add('visible'),d);obs.unobserve(en.target)}}},{threshold:.1});
+document.querySelectorAll('.feature-card,.advantage-card,.contact-card').forEach(el=>obs.observe(el));
 
-document.querySelectorAll('.feature-card, .pricing-card').forEach(el => observer.observe(el));
+// PARALLAX
+document.addEventListener('mousemove',e=>{const h1=document.querySelector('h1');if(h1)h1.style.transform=`translate(${(e.clientX/window.innerWidth-.5)*12}px,${(e.clientY/window.innerHeight-.5)*12}px)`});
 
-// ========== PARALLAX ==========
-document.addEventListener('mousemove', (e) => {
-  const x = (e.clientX / window.innerWidth - 0.5) * 2;
-  const y = (e.clientY / window.innerHeight - 0.5) * 2;
-  const h1 = document.querySelector('h1');
-  if (h1) {
-    h1.style.transform = `translate(${x * 15}px, ${y * 15}px)`;
-  }
-});
+// COUNTER
+let base=142;setInterval(()=>{base+=Math.floor(Math.random()*5)-2;if(base<80)base=80;if(base>250)base=250;document.getElementById('onlineCount').textContent=base},4000);
 
-// ========== COUNTER ==========
-const countEl = document.getElementById('onlineCount');
-let baseCount = 127;
-setInterval(() => {
-  baseCount += Math.floor(Math.random() * 5) - 2;
-  if (baseCount < 80) baseCount = 80;
-  if (baseCount > 200) baseCount = 200;
-  countEl.textContent = baseCount;
-}, 4000);
+// BURGER
+const burger=document.getElementById('burger'),navLinks=document.getElementById('navLinks');
+burger.addEventListener('click',()=>{burger.classList.toggle('active');navLinks.classList.toggle('open');if(navLinks.classList.contains('open'))playWhoosh()});
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{burger.classList.remove('active');navLinks.classList.remove('open')}));
 
-// ========== BURGER MENU ==========
-const burger = document.getElementById('burger');
-const navLinks = document.getElementById('navLinks');
-burger.addEventListener('click', () => {
-  burger.classList.toggle('active');
-  navLinks.classList.toggle('open');
-  const isOpen = navLinks.classList.contains('open');
-  if (isOpen) playWhoosh();
-});
-navLinks.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => {
-    burger.classList.remove('active');
-    navLinks.classList.remove('open');
-  });
-});
-
-// ========== CONTACT FORM ==========
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  playClick();
-  const btn = this.querySelector('.btn-submit');
-  const orig = btn.textContent;
-  btn.textContent = '✓ Отправлено!';
-  btn.style.background = 'linear-gradient(135deg,#22c55e,#16a34a)';
-  setTimeout(() => {
-    btn.textContent = orig;
-    btn.style.background = '';
-    this.reset();
-  }, 2000);
-});
-
-// ========== VIDEO PLACEHOLDER ==========
-document.getElementById('playVideo')?.addEventListener('click', () => {
-  playClick();
-  alert('Видеообзор появится soon! Следите за обновлениями.');
-});
+// COMING SOON
+function showComingSoon(){playClick();alert('🚀 Скачивание скоро будет доступно! Следите за новостями в Telegram.')}
 </script>
 </body>
 </html>
