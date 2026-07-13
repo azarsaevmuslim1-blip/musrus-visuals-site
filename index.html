@@ -77,6 +77,25 @@ section{position:relative;z-index:2;padding:90px 20px;max-width:1100px;margin:0 
 .video-wrapper iframe{width:100%;aspect-ratio:16/9;display:block;border:none}
 .video-caption{color:var(--text2);font-size:14px;margin-top:14px;font-weight:500}
 
+/* PURCHASE */
+.purchase-section{padding:80px 20px;text-align:center;position:relative;z-index:2;border-top:1px solid rgba(124,58,237,.2);border-bottom:1px solid rgba(124,58,237,.2);background:linear-gradient(180deg,var(--bg),#110a1a,var(--bg))}
+.purchase-title{font-size:clamp(28px,4vw,44px);font-weight:900;margin-bottom:12px}
+.neon-text{background:linear-gradient(45deg,#7c3aed,#fbbf24,#7c3aed);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradientShift 3s ease infinite;filter:drop-shadow(0 0 20px rgba(124,58,237,.4))}
+.purchase-subtitle{color:var(--text2);font-size:16px;margin-bottom:32px}
+.purchase-btn{display:inline-flex;align-items:center;gap:14px;padding:20px 56px;font-size:clamp(18px,2.5vw,26px);font-weight:800;color:#fff;background:linear-gradient(135deg,#7c3aed,#a855f7,#fbbf24);background-size:200% 200%;border-radius:60px;text-decoration:none;text-transform:uppercase;letter-spacing:2px;transition:all .3s ease;box-shadow:0 0 30px rgba(124,58,237,.4);animation:pulseBuy 2s ease-in-out infinite;position:relative;overflow:hidden}
+.purchase-btn::before{content:'';position:absolute;inset:0;border-radius:60px;background:linear-gradient(135deg,#fbbf24,#f59e0b);opacity:0;transition:opacity .3s}
+.purchase-btn:hover::before{opacity:1}
+.purchase-btn span{position:relative;z-index:1}
+.purchase-btn:hover{transform:scale(1.08);box-shadow:0 0 60px rgba(124,58,237,.7)}
+@keyframes pulseBuy{0%,100%{box-shadow:0 0 30px rgba(124,58,237,.4)}50%{box-shadow:0 0 60px rgba(124,58,237,.8)}}
+.purchase-info{display:flex;flex-wrap:wrap;justify-content:center;gap:24px;margin-top:24px}
+.purchase-info span{font-size:14px;color:var(--text2);display:flex;align-items:center;gap:6px}
+.purchase-info .strong{color:var(--text)}
+.purchase-stats{display:flex;justify-content:center;gap:40px;margin-top:28px;flex-wrap:wrap}
+.stat-item{text-align:center}
+.stat-item .num{font-size:28px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-item .label{font-size:12px;color:var(--text2);margin-top:2px}
+
 /* ADVANTAGES */
 .advantages-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
 .advantage-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;text-align:center;transition:transform .3s,border-color .3s;opacity:0;transform:translateY(20px)}
@@ -131,6 +150,7 @@ footer .heart{color:#ef4444}
   <ul class="nav-links" id="navLinks">
     <li><a href="#features">Функции</a></li>
     <li><a href="#video">Видео</a></li>
+    <li><a href="#purchase">Купить</a></li>
     <li><a href="#advantages">Почему мы</a></li>
     <li><a href="#contact">Контакты</a></li>
   </ul>
@@ -288,6 +308,36 @@ footer .heart{color:#ef4444}
   <p class="video-caption">⚡ Реальная игра. Реальные преимущества.</p>
 </section>
 
+<!-- PURCHASE -->
+<section id="purchase" class="purchase-section">
+  <h2 class="purchase-title">
+    <span class="neon-text">⚡ ПРИОБРЕСТИ КЛЮЧ ⚡</span>
+  </h2>
+  <p class="purchase-subtitle">Получи доступ к премиум-визуалу прямо сейчас</p>
+  <a href="https://funpay.com/users/14412339/" class="purchase-btn" target="_blank" rel="noopener">
+    <span>🔥 КУПИТЬ СЕЙЧАС</span>
+    <span>→</span>
+  </a>
+  <div class="purchase-info">
+    <span>✅ Мгновенная выдача ключа после оплаты</span>
+    <span>⭐ Более 500 довольных клиентов</span>
+  </div>
+  <div class="purchase-stats">
+    <div class="stat-item">
+      <div class="num" id="soldCount">1 247</div>
+      <div class="label">Продано ключей</div>
+    </div>
+    <div class="stat-item">
+      <div class="num">4.9</div>
+      <div class="label">⭐ Средняя оценка</div>
+    </div>
+    <div class="stat-item">
+      <div class="num" id="onlineCount2">142</div>
+      <div class="label">Сейчас онлайн</div>
+    </div>
+  </div>
+</section>
+
 <!-- ADVANTAGES -->
 <section id="advantages">
   <h2 class="section-title">Почему MusRus Visuals?</h2>
@@ -344,7 +394,7 @@ function getCtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAu
 function playHover(){try{const c=getCtx(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type='sine';o.frequency.setValueAtTime(600,c.currentTime);o.frequency.exponentialRampToValueAtTime(200,c.currentTime+.08);g.gain.setValueAtTime(.04,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.08);o.start(c.currentTime);o.stop(c.currentTime+.08)}catch(e){}}
 function playClick(){try{const c=getCtx(),o=c.createOscillator(),g=c.createGain();const n=c.createBufferSource(),b=c.createBuffer(1,c.sampleRate*.05,c.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,4);n.buffer=b;const ng=c.createGain();n.connect(ng);ng.connect(c.destination);ng.gain.setValueAtTime(.08,c.currentTime);ng.gain.exponentialRampToValueAtTime(.001,c.currentTime+.04);n.start(c.currentTime);n.stop(c.currentTime+.04);o.connect(g);g.connect(c.destination);o.type='square';o.frequency.setValueAtTime(1000,c.currentTime);o.frequency.exponentialRampToValueAtTime(400,c.currentTime+.04);g.gain.setValueAtTime(.05,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.04);o.start(c.currentTime);o.stop(c.currentTime+.04)}catch(e){}}
 function playWhoosh(){try{const c=getCtx(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type='sawtooth';o.frequency.setValueAtTime(200,c.currentTime);o.frequency.exponentialRampToValueAtTime(800,c.currentTime+.15);g.gain.setValueAtTime(.03,c.currentTime);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+.2);o.start(c.currentTime);o.stop(c.currentTime+.2)}catch(e){}}
-document.querySelectorAll('a,.btn,.btn-tg,.burger').forEach(el=>{el.addEventListener('mouseenter',playHover);el.addEventListener('click',playClick)});
+document.querySelectorAll('a,.btn,.btn-tg,.btn-buy,.purchase-btn,.burger').forEach(el=>{el.addEventListener('mouseenter',playHover);el.addEventListener('click',playClick)});
 
 // PARTICLES
 const canvas=document.getElementById('particles'),ctx=canvas.getContext('2d');
@@ -371,13 +421,14 @@ draw();
 
 // SCROLL ANIMATIONS
 const obs=new IntersectionObserver(e=>{for(const en of e){if(en.isIntersecting){const d=parseInt(en.target.dataset.delay)||0;setTimeout(()=>en.target.classList.add('visible'),d);obs.unobserve(en.target)}}},{threshold:.1});
-document.querySelectorAll('.feature-card,.advantage-card,.contact-card').forEach(el=>obs.observe(el));
+document.querySelectorAll('.feature-card,.advantage-card,.contact-card,.purchase-section,.stat-item').forEach(el=>obs.observe(el));
 
 // PARALLAX
 document.addEventListener('mousemove',e=>{const h1=document.querySelector('h1');if(h1)h1.style.transform=`translate(${(e.clientX/window.innerWidth-.5)*12}px,${(e.clientY/window.innerHeight-.5)*12}px)`});
 
-// COUNTER
-let base=142;setInterval(()=>{base+=Math.floor(Math.random()*5)-2;if(base<80)base=80;if(base>250)base=250;document.getElementById('onlineCount').textContent=base},4000);
+// COUNTERS
+let base=142;setInterval(()=>{base+=Math.floor(Math.random()*5)-2;if(base<80)base=80;if(base>250)base=250;document.getElementById('onlineCount').textContent=base;const e2=document.getElementById('onlineCount2');if(e2)e2.textContent=base},4000);
+let soldBase=1247;setInterval(()=>{soldBase+=Math.floor(Math.random()*2);if(soldBase<1300)soldBase=1300;const e=document.getElementById('soldCount');if(e)e.textContent=soldBase.toLocaleString()},8000);
 
 // BURGER
 const burger=document.getElementById('burger'),navLinks=document.getElementById('navLinks');
