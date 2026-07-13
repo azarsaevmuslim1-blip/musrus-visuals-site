@@ -146,9 +146,9 @@ footer .heart{color:#ef4444}
     <p>Твой стиль. Твоя игра. Твои правила.</p>
     <div class="hero-desc">Визуальный клиент, который делает Minecraft красивее и удобнее. Тысячи игроков уже оценили!</div>
     <div class="hero-btns">
-      <button class="btn btn-primary" onclick="showComingSoon()">
+      <a href="https://github.com/azarsaevmuslim1-blip/musrus-license-server/releases/download/v1.0.0/MusrusVisuals.pro.exe" class="btn btn-primary" target="_blank" rel="noopener">
         <span>📥</span> Скачать сейчас
-      </button>
+      </a>
       <a href="#video" class="btn btn-secondary">
         <span>▶</span> Смотреть видео
       </a>
@@ -383,8 +383,7 @@ const burger=document.getElementById('burger'),navLinks=document.getElementById(
 burger.addEventListener('click',()=>{burger.classList.toggle('active');navLinks.classList.toggle('open');if(navLinks.classList.contains('open'))playWhoosh()});
 navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{burger.classList.remove('active');navLinks.classList.remove('open')}));
 
-// COMING SOON
-function showComingSoon(){playClick();alert('🚀 Скачивание скоро будет доступно! Следите за новостями в Telegram.')}
+
 </script>
 </body>
 </html>
