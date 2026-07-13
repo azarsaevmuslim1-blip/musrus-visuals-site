@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MusRus Visuals — Премиум визуал для Minecraft</title>
+<title>Musrus Visuals — Премиум визуал для Minecraft</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -27,6 +27,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 32px;display:fl
 .nav-links{display:flex;gap:6px;list-style:none}
 .nav-links a{color:var(--text2);text-decoration:none;font-size:13px;font-weight:500;padding:8px 14px;border-radius:8px;transition:color .2s,background .2s}
 .nav-links a:hover{color:var(--text);background:rgba(124,58,237,.1)}
+.nav-links .nav-buy{background:linear-gradient(135deg,rgba(124,58,237,.2),rgba(251,191,36,.1));border:1px solid rgba(251,191,36,.25);color:var(--gold,#fbbf24);font-weight:700;padding:8px 18px}
+.nav-links .nav-buy:hover{background:linear-gradient(135deg,rgba(124,58,237,.3),rgba(251,191,36,.2));border-color:rgba(251,191,36,.5);color:#fff}
 .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
 .burger span{width:22px;height:2px;background:var(--text);border-radius:2px;transition:transform .3s,opacity .3s}
 .burger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
@@ -146,11 +148,11 @@ footer .heart{color:#ef4444}
 <canvas id="particles"></canvas>
 
 <nav>
-  <a href="#" class="nav-logo">✦ MusRus</a>
+  <a href="#" class="nav-logo">✦ Musrus</a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#features">Функции</a></li>
     <li><a href="#video">Видео</a></li>
-    <li><a href="#purchase">Купить</a></li>
+    <li><a href="#purchase" class="nav-buy">🔥 Купить</a></li>
     <li><a href="#advantages">Почему мы</a></li>
     <li><a href="#contact">Контакты</a></li>
   </ul>
@@ -301,7 +303,7 @@ footer .heart{color:#ef4444}
 <!-- VIDEO -->
 <section id="video" class="video-section">
   <h2 class="section-title">Смотри, как меняется игра!</h2>
-  <p class="section-sub">Дуэль на 30 секунд — MusRus Visuals в действии</p>
+  <p class="section-sub">Дуэль на 30 секунд — Musrus Visuals в действии</p>
   <div class="video-wrapper">
     <iframe src="https://www.youtube.com/embed/NJrDFuuzcSg?autoplay=0&rel=0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
   </div>
@@ -324,23 +326,15 @@ footer .heart{color:#ef4444}
   </div>
   <div class="purchase-stats">
     <div class="stat-item">
-      <div class="num" id="soldCount">1 247</div>
-      <div class="label">Продано ключей</div>
-    </div>
-    <div class="stat-item">
-      <div class="num">4.9</div>
-      <div class="label">⭐ Средняя оценка</div>
-    </div>
-    <div class="stat-item">
       <div class="num" id="onlineCount2">142</div>
-      <div class="label">Сейчас онлайн</div>
+      <div class="label">⚡ Сейчас онлайн</div>
     </div>
   </div>
 </section>
 
 <!-- ADVANTAGES -->
 <section id="advantages">
-  <h2 class="section-title">Почему MusRus Visuals?</h2>
+  <h2 class="section-title">Почему Musrus Visuals?</h2>
   <p class="section-sub">Тысячи игроков уже сделали выбор</p>
   <div class="advantages-grid">
     <div class="advantage-card" data-delay="0">
@@ -382,8 +376,8 @@ footer .heart{color:#ef4444}
 
 <!-- FOOTER -->
 <footer>
-  <div class="logo">✦ MusRus Visuals</div>
-  <p>© 2026 MusRus Visuals.</p>
+  <div class="logo">✦ Musrus Visuals</div>
+  <p>© 2026 Musrus Visuals.</p>
   <p>Сделано с <span class="heart">❤</span> для настоящих игроков</p>
 </footer>
 
@@ -428,7 +422,6 @@ document.addEventListener('mousemove',e=>{const h1=document.querySelector('h1');
 
 // COUNTERS
 let base=142;setInterval(()=>{base+=Math.floor(Math.random()*5)-2;if(base<80)base=80;if(base>250)base=250;document.getElementById('onlineCount').textContent=base;const e2=document.getElementById('onlineCount2');if(e2)e2.textContent=base},4000);
-let soldBase=1247;setInterval(()=>{soldBase+=Math.floor(Math.random()*2);if(soldBase<1300)soldBase=1300;const e=document.getElementById('soldCount');if(e)e.textContent=soldBase.toLocaleString()},8000);
 
 // BURGER
 const burger=document.getElementById('burger'),navLinks=document.getElementById('navLinks');
